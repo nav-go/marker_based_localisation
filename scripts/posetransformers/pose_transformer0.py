@@ -7,10 +7,14 @@ import tf
 from fiducial_msgs.msg import FiducialTransformArray
 
 def handle_camera_pose(msg):
-    br = tf.TransformBroadcaster()
+    br=[]
+    for i in range(0,11):
+        br[i] = tf.TransformBroadcaster()
+    
+
     trans = msg.transforms[0].transform.translation
     rot = msg.transforms[0].transform.rotation
-    br.sendTransform((trans.x, trans.y, trans.z),
+    br1.sendTransform((trans.x, trans.y, trans.z),
                      (rot.x, rot.y, rot.z, rot.w),
                      rospy.Time.now(),
                      "solo1",
