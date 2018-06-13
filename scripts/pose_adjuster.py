@@ -2,11 +2,11 @@
 #import roslib
 #roslib.load_manifest('learning_tf')
 import rospy
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import Header
 
 from dynamic_reconfigure.server import Server
-from marker_based_localisation.cfg import PoseBiasAdjust
+from marker_based_localisation.cfg import PoseBiasAdjustConfig
 
 class Bias_corrector:
     
@@ -19,43 +19,48 @@ class Bias_corrector:
         rospy.loginfo('Output_topic: %s', self.output_topic)
 
         #Start dynamic reconfigure server
-        self.server = Server(PoseBiasAdjust,self.reconfigure)
+        self.server = Server(PoseBiasAdjustConfig,self.reconfigure)
 
-        self.sub = rospy.Subscriber(self.input_topic,Pose,self.correct_bias)
-        self.pub = rospy.Publisher(self.output_topic,Pose,queue_size = 10)
+        self.sub = rospy.Subscriber(self.input_topic,PoseStamped,self.correct_bias)
+        self.pub = rospy.Publisher(self.output_topic,PoseStamped,queue_size = 10)
         rospy.spin()
 
     def correct_bias(self,data):
 
         
-        #construct a new message from Imu data Class and add header
-        msg = Pose(header=Header(stamp=rospy.get_rostime()))
+        #construct a new message from Pose data Class and add header
+        msg = PoseStamped(header=Header(stamp=rospy.get_rostime()))
         
         # adjust bad data by subracting bias 
-        good_x = bad_data.linear_acceleration.x-self.first_msg.linear_acceleration.x
-        good_y = bad_data.linear_acceleration.y-self.first_msg.linear_acceleration.y
-        good_z = bad_data.linear_acceleration.z-self.first_msg.linear_acceleration.z
-        
-        # rewrite new topic
-        msg.angular_velocity = bad_data.angular_velocity
-        msg.angular_velocity_covariance = bad_data.angular_velocity_covariance
-        msg.orientation = bad_data.orientation
-        msg.orientation_covariance = bad_data.orientation_covariance
-        msg.linear_acceleration_covariance = bad_data.linear_acceleration_covariance
-        msg.linear_acceleration.x = good_x
-        msg.linear_acceleration.y = good_y
-        msg.linear_acceleration.z = good_z
-        
-        self.pub_good_imu.publish(msg)
-        rospy.loginfo('Bias corrected IMU linear acc')
+        pos = data.pose.position
+        ori = data.pose.orientation
+        msg.pose.position.x = pos.x + self.x_posbiasinput
+        msg.pose.position.y = pos.y + self.y_posbiasinput
+        msg.pose.position.z = pos.z + self.z_posbiasinput
+
+        msg.pose.orientation.x = ori.x + self.x_rotbiasinput
+        msg.pose.orientation.y = ori.y + self.y_rotbiasinput
+        msg.pose.orientation.z = ori.z + self.z_rotbiasinput
+        msg.pose.orientation.w = ori.w + self.w_rotbiasinput
+                
+        self.pub.publish(msg)
+        # rospy.loginfo('Bias corrected IMU linear acc')
+        rospy.loginfo(self.init_message)
         
     # Create a callback function for the dynamic reconfigure server.
     def reconfigure(self, config, level):
         # Fill in local variables with values received from dynamic reconfigure clients (typically the GUI).
-        self.message = config["message"]
-        self.a = config["a"]
-        self.b = config["b"]
-        # Return the new variables.
+        self.input_topic = config["input_topic"]
+        self.output_topic = config["output_topic"]
+        rospy.loginfo('Input_topic: %s', self.input_topic)
+        rospy.loginfo('Output_topic: %s', self.output_topic)
+        self.x_posbiasinput = config["X_position"]
+        self.y_posbiasinput = config["Y_position"]
+        self.z_posbiasinput = config["Z_position"]
+        self.x_rotbiasinput = config["X_orientation"]
+        self.y_rotbiasinput = config["Y_orientation"]
+        self.z_rotbiasinput = config["Z_orientation"]
+        self.w_rotbiasinput = config["W_orientation"]
         return config
 
 if __name__ == '__main__':
