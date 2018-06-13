@@ -34,8 +34,8 @@ class Bias_corrector:
         # adjust bad data by subracting bias 
         pos = data.pose.position
         ori = data.pose.orientation
-        msg.pose.position.x = pos.x + self.x_posbiasinput
-        msg.pose.position.y = pos.y + self.y_posbiasinput
+        msg.pose.position.x = pos.y + self.x_posbiasinput
+        msg.pose.position.y = 0.0-pos.x + self.y_posbiasinput
         msg.pose.position.z = pos.z + self.z_posbiasinput
 
         msg.pose.orientation.x = ori.x + self.x_rotbiasinput
