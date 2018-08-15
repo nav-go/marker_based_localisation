@@ -13,7 +13,7 @@ class Bias_corrector:
     def __init__(self):
         #get private NS params from bash or launch file
         self.init_message = rospy.get_param('~start message','Adjust Node started')
-        self.input_topic = rospy.get_param('~input_topic','/vrpn_client_node/Solo/pose')
+        self.input_topic = rospy.get_param('~input_topic','/vrpn_client_node/quad/pose')
         self.output_topic = rospy.get_param('~output_topic','/ground_truth/pose')
         rospy.loginfo('Input_topic: %s', self.input_topic)
         rospy.loginfo('Output_topic: %s', self.output_topic)
@@ -29,7 +29,7 @@ class Bias_corrector:
 
         
         #construct a new message from Pose data Class and add header
-        msg = PoseStamped(header=Header(stamp=rospy.get_rostime()))
+        msg = PoseStamped(header=Header(stamp=rospy.get_rostime(),frame_id ='map_fid'))
         
         # adjust bad data by subracting bias 
         pos = data.pose.position
@@ -45,7 +45,8 @@ class Bias_corrector:
                 
         self.pub.publish(msg)
         # rospy.loginfo('Bias corrected IMU linear acc')
-        rospy.loginfo(self.init_message)
+        rospy.loginfo_throttle(120,self.init_message)
+        
         
     # Create a callback function for the dynamic reconfigure server.
     def reconfigure(self, config, level):

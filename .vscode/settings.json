@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/dronear/ng_ws/devel/lib/python2.7/dist-packages",
+        "/opt/sasc/lib/python2.7/dist-packages",
+        "/opt/ros/kinetic/lib/python2.7/dist-packages",
+        "/usr/bin/python3"
+    ]
+}

@@ -1,0 +1,53 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/dronear/ng_ws/devel/include",
+        "/opt/sasc/include",
+        "/opt/ros/kinetic/include",
+        "/home/dronear/ng_ws/src/aruco_mapping/include",
+        "/home/dronear/ng_ws/src/aruco_mapping_filter/include",
+        "/home/dronear/ng_ws/src/ros_control/combined_robot_hw/include",
+        "/home/dronear/ng_ws/src/ros_control/combined_robot_hw_tests/include",
+        "/home/dronear/ng_ws/src/ros_control/controller_interface/include",
+        "/home/dronear/ng_ws/src/ros_control/controller_manager/include",
+        "/home/dronear/ng_ws/src/ros_control/controller_manager_tests/include",
+        "/home/dronear/ng_ws/src/cv_camera/include",
+        "/home/dronear/ng_ws/src/fiducials/fiducial_slam/include",
+        "/home/dronear/ng_ws/src/filters/include",
+        "/home/dronear/ng_ws/src/ros_control/hardware_interface/include",
+        "/home/dronear/ng_ws/src/ros_control/joint_limits_interface/include",
+        "/home/dronear/ng_ws/src/mavros/libmavconn/include",
+        "/home/dronear/ng_ws/src/marker_based_localisation/include",
+        "/home/dronear/ng_ws/src/mavros/mavros/include",
+        "/home/dronear/ng_ws/src/mavros/mavros_msgs/include",
+        "/home/dronear/ng_ws/src/PlotJuggler/include",
+        "/home/dronear/ng_ws/src/realtime_tools/include",
+        "/home/dronear/ng_ws/src/robot_localization/include",
+        "/home/dronear/ng_ws/src/ros_type_introspection/include",
+        "/home/dronear/ng_ws/src/rosserial/rosserial_server/include",
+        "/home/dronear/ng_ws/src/rosserial/rosserial_test/include",
+        "/home/dronear/ng_ws/src/simple_takeoff/include",
+        "/home/dronear/ng_ws/src/takeoff_test/include",
+        "/home/dronear/ng_ws/src/mavros/test_mavros/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_bullet/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_eigen/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_geometry_msgs/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_kdl/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_msgs/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_ros/include",
+        "/home/dronear/ng_ws/src/geometry2/tf2_sensor_msgs/include",
+        "/home/dronear/ng_ws/src/ros_control/transmission_interface/include",
+        "/home/dronear/ng_ws/src/vrpn_client_ros/include",
+        "/home/dronear/ng_ws/src/joystick_drivers/wiimote/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
